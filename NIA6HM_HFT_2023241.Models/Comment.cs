@@ -13,7 +13,8 @@ namespace NIA6HM_HFT_2023241.Models
         [Key] public int CommentId { get; set; }
         public string Text { get; set; }
 
-        [ForeignKey(nameof(Article))]public int ArticleId { get; set; }
+        [ForeignKey(nameof(Article))]
+        public int ArticleId { get; set; }
         
         public virtual Article Article { get; set; }
     }

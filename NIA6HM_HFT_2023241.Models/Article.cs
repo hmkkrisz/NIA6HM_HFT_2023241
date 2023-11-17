@@ -12,7 +12,6 @@ namespace NIA6HM_HFT_2023241.Models
     {
         [Key]public int ArticleId { get; set; }
         public string Title { get; set; }
-        public string Content { get; set; }
         public virtual Author Author { get; set; }
         public virtual ICollection<Comment> Comments { get; set;}
 
