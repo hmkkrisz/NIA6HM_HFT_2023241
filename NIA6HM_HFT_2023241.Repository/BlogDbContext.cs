@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NIA6HM_HFT_2023241.Models;
 using System;
+using System.Reflection.Metadata;
 
 namespace NIA6HM_HFT_2023241.Repository
 {
@@ -20,8 +21,8 @@ namespace NIA6HM_HFT_2023241.Repository
             if (!optionsbuilder.IsConfigured)
             {
                 optionsbuilder
-                    .UseLazyLoadingProxies();
-
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\BlogDatabase.mdf;Integrated Security=True");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -107,6 +108,11 @@ namespace NIA6HM_HFT_2023241.Repository
                     .HasForeignKey(comment => comment.ArticleId)
                     .OnDelete(DeleteBehavior.Cascade);
             });
+
+
+            modelBuilder.Entity<Author>().HasData(a1, a2, a3, a4, a5);
+            modelBuilder.Entity<Article>().HasData(article1, article2, article3, article4, article5, article6, article7, article8, article9, article10);
+            modelBuilder.Entity<Comment>().HasData(c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14);
         }
     }
 }
