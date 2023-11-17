@@ -14,11 +14,18 @@ namespace NIA6HM_HFT_2023241.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ArticleId { get; set; }
         public string Title { get; set; }
+        public string Category { get; set; }
+        public int? Likes { get; set; }
         public virtual Author Author { get; set; }
         public virtual ICollection<Comment> Comments { get; set;}
 
         [ForeignKey(nameof(Author))] 
         public int AuthorId { get; set; }
+
+        public Article()
+        {
+            Comments = new HashSet<Comment>();
+        }
     }
 
 }

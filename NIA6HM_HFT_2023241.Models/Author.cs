@@ -14,5 +14,10 @@ namespace NIA6HM_HFT_2023241.Models
         [Required]
         public string Name { get; set; }
         public virtual ICollection<Article> Articles { get; set; }
+
+        public Author()
+        {
+            Articles = new HashSet<Article>();
+        }
     }
 }
