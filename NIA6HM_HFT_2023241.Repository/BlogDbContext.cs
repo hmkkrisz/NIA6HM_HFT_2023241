@@ -22,7 +22,7 @@ namespace NIA6HM_HFT_2023241.Repository
             {
                 optionsbuilder
                     .UseLazyLoadingProxies()
-                    .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\BlogDatabase.mdf;Integrated Security=True");
+                    .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\BlogDatabase.mdf;Integrated Security=True;MultipleActiveResultSets=True");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
