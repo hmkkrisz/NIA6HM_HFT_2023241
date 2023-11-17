@@ -10,7 +10,9 @@ namespace NIA6HM_HFT_2023241.Models
 {
     public class Comment
     {
-        [Key] public int CommentId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CommentId { get; set; }
         public string Text { get; set; }
 
         [ForeignKey(nameof(Article))]

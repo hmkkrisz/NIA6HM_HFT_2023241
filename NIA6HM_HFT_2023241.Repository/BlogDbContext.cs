@@ -9,5 +9,13 @@ namespace NIA6HM_HFT_2023241.Repository
         public DbSet<Article> Articles { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Comment> Comments { get; set; }
+
+        public BlogDbContext()
+        {
+            this.Database.EnsureCreated();
+        }
+        public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
+        {
+        }
     }
 }
