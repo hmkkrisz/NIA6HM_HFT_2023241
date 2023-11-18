@@ -16,16 +16,14 @@ namespace NIA6HM_HFT_2023241.Repository
             this.Database.EnsureCreated();
         }
 
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
-        {
-            if (!optionsbuilder.IsConfigured)
-            {
-                optionsbuilder
-                    .UseLazyLoadingProxies()
-                    .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\blog.mdf;Integrated Security=True;MultipleActiveResultSets=true");
-                    
 
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+            if (!builder.IsConfigured)
+            {
+                builder
+                    .UseLazyLoadingProxies()
+                    .UseInMemoryDatabase("blog");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
