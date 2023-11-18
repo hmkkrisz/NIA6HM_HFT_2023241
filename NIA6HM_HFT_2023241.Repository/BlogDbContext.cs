@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using NIA6HM_HFT_2023241.Models;
-using System;
-using System.Reflection.Metadata;
+
 
 namespace NIA6HM_HFT_2023241.Repository
 {
@@ -16,13 +16,16 @@ namespace NIA6HM_HFT_2023241.Repository
             this.Database.EnsureCreated();
         }
 
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
         {
             if (!optionsbuilder.IsConfigured)
             {
                 optionsbuilder
                     .UseLazyLoadingProxies()
-                    .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\BlogDatabase.mdf;Integrated Security=True;MultipleActiveResultSets=True");
+                    .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\blog.mdf;Integrated Security=True;MultipleActiveResultSets=true");
+                    
+
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,7 +36,7 @@ namespace NIA6HM_HFT_2023241.Repository
             Author a4 = new Author() { AuthorId = 4, Name = "Emily Davis" };
             Author a5 = new Author() { AuthorId = 5, Name = "Robert White" };
 
-
+            
             Article article1 = new Article() { ArticleId = 1, Title = "Galactic Odyssey: Beyond the Stars", Category = "Sci-Fi", Likes = 14};
             Article article2 = new Article() { ArticleId = 2, Title = "Cybernetic Chronicles: Rise of the Machines", Category = "Sci-Fi", Likes = 69 };
             Article article3 = new Article() { ArticleId = 3, Title = "Realm of the Mystic Dragons", Category = "Fantasy", Likes = 46 };
