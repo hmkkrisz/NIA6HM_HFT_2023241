@@ -2,6 +2,8 @@
 using System.Linq;
 using NIA6HM_HFT_2023241.Models;
 using NIA6HM_HFT_2023241.Repository;
+using NIA6HM_HFT_2023241.Logic;
+
 
 namespace NIA6HM_HFT_2023241.Client
 {
@@ -9,13 +11,19 @@ namespace NIA6HM_HFT_2023241.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-         
-            IRepository<Article> repo = new ArticleRepository(new BlogDbContext());
+          
+            var ctx = new BlogDbContext();
+            var ArticleRepo = new ArticleRepository(ctx);
+            var ArticleLogic = new ArticleLogic(ArticleRepo);
 
-            var items = repo.ReadAll().ToArray();
+            var nc = ArticleLogic.YearStatistics();
+            var nc2 = ArticleLogic.AvgLikesPerCategory();
+            
+            var nc1 = ArticleLogic.MostComments();
+            
 
             ;
+            
         }
     }
 }
