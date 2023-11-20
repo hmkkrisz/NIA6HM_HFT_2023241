@@ -16,14 +16,18 @@ namespace NIA6HM_HFT_2023241.Client
             var ArticleRepo = new ArticleRepository(ctx);
             var ArticleLogic = new ArticleLogic(ArticleRepo);
 
-            var nc = ArticleLogic.YearStatistics();
+            var CommentRepo = new CommentRepository(ctx);
+            var CommentLogic = new CommentLogic(CommentRepo);
+
+            var nc = ArticleLogic.AuthorLikeStatistics();
+
             var nc2 = ArticleLogic.AvgLikesPerCategory();
             
             var nc1 = ArticleLogic.MostComments();
-            
+
+            var nc3 = ArticleLogic.GetCommentsForArticle(7);
 
             ;
-            
         }
     }
 }

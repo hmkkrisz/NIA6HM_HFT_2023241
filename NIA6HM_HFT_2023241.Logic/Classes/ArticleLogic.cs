@@ -44,18 +44,22 @@ namespace NIA6HM_HFT_2023241.Logic
 
         //NON-CRUD------
 
-        public IEnumerable<LikeInfo> YearStatistics()
+        public IEnumerable<LikeInfo> AuthorLikeStatistics()
         {
-            return from x in this.repo.ReadAll()
-                   group x by x.Author.Name into g
-                   select new LikeInfo()
-                   {
-                       name = g.Key,
-                       likes = g.Sum(t => t.Likes)
-                   };
+            var likes = (from x in this.repo.ReadAll()
+                        group x by x.Author.Name into g
+                        select new LikeInfo()
+                        {
+                            name = g.Key,
+                            likes = g.Sum(t => t.Likes)
+
+                        }).OrderByDescending(x =>x.likes);
+
+            return likes;
         }
         public IEnumerable<Article> MostComments()
         {
+
             var comments = this.repo.ReadAll()
                 .OrderByDescending(x => x.Comments.Count());
             return comments;
@@ -70,6 +74,14 @@ namespace NIA6HM_HFT_2023241.Logic
                        category = g.Key,
                        AvgLikes = g.Average(x => x.Likes)
                    };
+        }
+        public IEnumerable<Comment> GetCommentsForArticle(int articleId)
+        {
+            var comments = repo.ReadAll()
+                .Where(x => x.ArticleId == articleId)
+                .SelectMany(x => x.Comments).ToList();
+
+            return comments;
         }
 
         public class LikeInfo
