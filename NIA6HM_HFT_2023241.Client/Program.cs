@@ -19,15 +19,19 @@ namespace NIA6HM_HFT_2023241.Client
             var CommentRepo = new CommentRepository(ctx);
             var CommentLogic = new CommentLogic(CommentRepo);
 
-            var nc = ArticleLogic.AuthorStatistics();
+            var articleNC0 = ArticleLogic.AuthorStatistics();
 
-            var nc2 = ArticleLogic.AvgLikesPerCategory();
+            var articleNC1 = ArticleLogic.AvgLikesPerCategory();
             
-            var nc1 = ArticleLogic.Top3MostCommentedArticle();
+            var articleNC2 = ArticleLogic.Top3MostCommentedArticle();
 
-            var nc4 = ArticleLogic.GetMostLikedAuthor();
+            var articleNC3 = ArticleLogic.GetMostLikedAuthor();
 
-            var cn = CommentLogic.GetCommentsForArticle(7);
+            var commentNC = CommentLogic.GetCommentsForArticle(7);
+
+
+
+
 
             ;
         }
