@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Castle.DynamicProxy.Generators.Emitters;
+using Microsoft.EntityFrameworkCore;
 using NIA6HM_HFT_2023241.Models;
 using NIA6HM_HFT_2023241.Repository;
 using System;
@@ -44,24 +45,28 @@ namespace NIA6HM_HFT_2023241.Logic
 
         //NON-CRUD------
 
-        public IEnumerable<LikeInfo> AuthorLikeStatistics()
+        public IEnumerable<AuthorInfo> AuthorStatistics()
         {
             var likes = (from x in this.repo.ReadAll()
-                        group x by x.Author.Name into g
-                        select new LikeInfo()
-                        {
-                            name = g.Key,
-                            likes = g.Sum(t => t.Likes)
+                         group x by x.Author.Name into g
+                         select new AuthorInfo()
+                         {
+                             name = g.Key,
+                             articles = g.Count(),
+                             likes = g.Sum(t => t.Likes)
 
-                        }).OrderByDescending(x =>x.likes);
+
+                         }).OrderByDescending(x =>x.likes);
 
             return likes;
         }
-        public IEnumerable<Article> MostComments()
+        
+        public IQueryable<string> Top3MostCommentedArticle()
         {
 
             var comments = this.repo.ReadAll()
-                .OrderByDescending(x => x.Comments.Count());
+                .OrderByDescending(x => x.Comments.Count()).Take(3)
+                .Select(t => t.Title);
             return comments;
         }
 
@@ -73,6 +78,7 @@ namespace NIA6HM_HFT_2023241.Logic
                    {
                        category = g.Key,
                        AvgLikes = g.Average(x => x.Likes)
+
                    };
         }
         public IEnumerable<Comment> GetCommentsForArticle(int articleId)
@@ -84,10 +90,18 @@ namespace NIA6HM_HFT_2023241.Logic
             return comments;
         }
 
-        public class LikeInfo
+        public string GetMostLikedAuthor()
+        {
+            return this.repo.ReadAll()
+                .OrderByDescending(x => x.Likes).FirstOrDefault().Author.Name;
+               
+        }
+
+        public class AuthorInfo
         {
             public string name { get; set; }
             public int? likes { get; set; }
+            public int articles { get; set; }
             
         }
 

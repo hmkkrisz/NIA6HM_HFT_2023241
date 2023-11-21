@@ -39,5 +39,15 @@ namespace NIA6HM_HFT_2023241.Logic
         {
             this.repo.Update(item);
         }
+
+        public IQueryable<string> GetCommentsForArticle(int articleId)
+        {
+            var comments = repo.ReadAll()
+                .Where(x => x.ArticleId == articleId)
+                .Select(x => x.Text);
+
+            return comments;
+        }
+
     }
 }
