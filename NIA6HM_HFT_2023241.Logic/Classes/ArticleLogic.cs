@@ -20,17 +20,26 @@ namespace NIA6HM_HFT_2023241.Logic
         }
         public void Create(Article item)
         {
+            if (item.Title.Length < 3)
+            {
+                throw new ArgumentException("title too short...");
+            }
             this.repo.Create(item);
         }
 
         public void Delete(int id)
-        {
-            this.repo.Delete(id);
+        { 
+            this.repo.Delete(id); 
         }
 
         public Article Read(int id)
         {
-            return this.repo.Read(id);
+            var article = this.repo.Read(id);
+            if (article == null)
+            {
+                throw new ArgumentException("Article not exists");
+            }
+            return article;
         }
 
         public IQueryable<Article> ReadAll()
@@ -81,15 +90,6 @@ namespace NIA6HM_HFT_2023241.Logic
 
                    };
         }
-        public IEnumerable<Comment> GetCommentsForArticle(int articleId)
-        {
-            var comments = repo.ReadAll()
-                .Where(x => x.ArticleId == articleId)
-                .SelectMany(x => x.Comments).ToList();
-
-            return comments;
-        }
-
         public string GetMostLikedAuthor()
         {
             return this.repo.ReadAll()
