@@ -5,7 +5,11 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="ConsoleMenu-simple" Version="2.4.2" />
+	</ItemGroup>
+	
+	<ItemGroup>
     <ProjectReference Include="..\NIA6HM_HFT_2023241.Logic\NIA6HM_HFT_2023241.Logic.csproj" />
     <ProjectReference Include="..\NIA6HM_HFT_2023241.Models\NIA6HM_HFT_2023241.Models.csproj" />
     <ProjectReference Include="..\NIA6HM_HFT_2023241.Repository\NIA6HM_HFT_2023241.Repository.csproj" />
