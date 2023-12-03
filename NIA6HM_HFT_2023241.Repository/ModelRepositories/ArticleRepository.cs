@@ -15,7 +15,7 @@ namespace NIA6HM_HFT_2023241.Repository
 
         public override Article Read(int id)
         {
-            return ctx.Articles.FirstOrDefault(t => t.ArticleId == id);
+            return ReadAll().FirstOrDefault(t => t.ArticleId == id);
         }
 
         public override void Update(Article item)

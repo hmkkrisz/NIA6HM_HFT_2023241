@@ -34,12 +34,17 @@ namespace NIA6HM_HFT_2023241.Logic
 
         public Article Read(int id)
         {
-            var article = this.repo.Read(id);
-            if (article == null)
-            {
-                throw new ArgumentException("Article not exists");
-            }
-            return article;
+            if (id < repo.ReadAll().Count())
+                return repo.Read(id);
+            else
+                throw new IndexOutOfRangeException("[ERR] ID was too big!");
+
+            //var article = this.repo.Read(id);
+            //if (article == null)
+            //{
+            //    throw new ArgumentException("Article not exists");
+            //}
+            //return article;
         }
 
         public IQueryable<Article> ReadAll()
@@ -49,6 +54,12 @@ namespace NIA6HM_HFT_2023241.Logic
 
         public void Update(Article item)
         {
+            if (item.Title == "")
+            {
+                throw new Exception("[ERR] Title can't be empty!");
+            }
+
+
             this.repo.Update(item);
         }
 
@@ -90,10 +101,11 @@ namespace NIA6HM_HFT_2023241.Logic
 
                    };
         }
-        public string GetMostLikedAuthor()
+        public Author GetMostLikedAuthor()
         {
-            return this.repo.ReadAll()
-                .OrderByDescending(x => x.Likes).FirstOrDefault().Author.Name;
+            var author = this.repo.ReadAll()
+                .OrderByDescending(x => x.Likes).FirstOrDefault().Author;
+            return author;
                
         }
 
@@ -102,13 +114,53 @@ namespace NIA6HM_HFT_2023241.Logic
             public string name { get; set; }
             public int? likes { get; set; }
             public int articles { get; set; }
-            
+
+
+            public override bool Equals(object obj)
+            {
+                AuthorInfo b = obj as AuthorInfo;
+                if (b == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.name == b.name
+                        && this.likes == b.likes
+                        && this.articles == b.articles;
+                }
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(this.name, this.likes, this.articles);
+            }
+
         }
 
         public class AvgCtgLikes
         {
             public string category { get; set;}
             public double? AvgLikes { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                AvgCtgLikes b = obj as AvgCtgLikes;
+                if (b == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.category == b.category
+                        && this.AvgLikes == b.AvgLikes;                      
+                }
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(this.category, this.AvgLikes);
+            }
         }
 
     }
