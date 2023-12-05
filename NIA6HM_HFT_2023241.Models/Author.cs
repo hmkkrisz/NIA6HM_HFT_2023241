@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace NIA6HM_HFT_2023241.Models
 {
@@ -13,6 +14,8 @@ namespace NIA6HM_HFT_2023241.Models
 
         [Required]
         public string Name { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Article> Articles { get; set; }
 
         public Author()

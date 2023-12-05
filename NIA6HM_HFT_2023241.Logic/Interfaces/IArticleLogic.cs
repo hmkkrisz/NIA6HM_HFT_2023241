@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NIA6HM_HFT_2023241.Models;
+using static NIA6HM_HFT_2023241.Logic.ArticleLogic;
 
 namespace NIA6HM_HFT_2023241.Logic
 {
@@ -10,5 +12,11 @@ namespace NIA6HM_HFT_2023241.Logic
         Article Read(int id);
         IQueryable<Article> ReadAll();
         void Update(Article item);
+        IEnumerable<AuthorInfo> AuthorStatistics();
+        IQueryable<string> Top3MostCommentedArticle();
+        IEnumerable<AvgCtgLikes> AvgLikesPerCategory();
+        Author GetMostLikedAuthor();
+
+
     }
 }

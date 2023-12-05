@@ -38,13 +38,6 @@ namespace NIA6HM_HFT_2023241.Logic
                 return repo.Read(id);
             else
                 throw new IndexOutOfRangeException("[ERR] ID was too big!");
-
-            //var article = this.repo.Read(id);
-            //if (article == null)
-            //{
-            //    throw new ArgumentException("Article not exists");
-            //}
-            //return article;
         }
 
         public IQueryable<Article> ReadAll()
@@ -107,61 +100,7 @@ namespace NIA6HM_HFT_2023241.Logic
                 .OrderByDescending(x => x.Likes).FirstOrDefault().Author;
             return author;
                
-        }
-
-        public class AuthorInfo
-        {
-            public string name { get; set; }
-            public int? likes { get; set; }
-            public int articles { get; set; }
-
-
-            public override bool Equals(object obj)
-            {
-                AuthorInfo b = obj as AuthorInfo;
-                if (b == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return this.name == b.name
-                        && this.likes == b.likes
-                        && this.articles == b.articles;
-                }
-            }
-
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(this.name, this.likes, this.articles);
-            }
-
-        }
-
-        public class AvgCtgLikes
-        {
-            public string category { get; set;}
-            public double? AvgLikes { get; set; }
-
-            public override bool Equals(object obj)
-            {
-                AvgCtgLikes b = obj as AvgCtgLikes;
-                if (b == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return this.category == b.category
-                        && this.AvgLikes == b.AvgLikes;                      
-                }
-            }
-
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(this.category, this.AvgLikes);
-            }
-        }
+        }   
 
     }
 }

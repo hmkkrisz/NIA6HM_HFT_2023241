@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace NIA6HM_HFT_2023241.Models
@@ -16,7 +17,9 @@ namespace NIA6HM_HFT_2023241.Models
         public string Title { get; set; }
         public string Category { get; set; }
         public int? Likes { get; set; }
+
         public virtual Author Author { get; set; }
+
         public virtual ICollection<Comment> Comments { get; set;}
 
         [ForeignKey(nameof(Author))] 

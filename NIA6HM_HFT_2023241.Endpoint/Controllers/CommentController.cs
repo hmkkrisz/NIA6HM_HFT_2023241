@@ -7,37 +7,37 @@ namespace NIA6HM_HFT_2023241.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AuthorController : ControllerBase
+    public class CommentController : ControllerBase
     {
 
-        IAuthorLogic logic;
+        ICommentLogic logic;
 
-        public AuthorController(IAuthorLogic logic)
+        public CommentController(ICommentLogic logic)
         {
             this.logic = logic;
         }
 
 
         [HttpGet]
-        public IEnumerable<Author> ReadAll()
+        public IEnumerable<Comment> ReadAll()
         {
             return this.logic.ReadAll();
         }
 
         [HttpGet("{id}")]
-        public Author Read(int id)
+        public Comment Read(int id)
         {
             return this.logic.Read(id);
         }
 
         [HttpPost]
-        public void Create([FromBody] Author value)
+        public void Create([FromBody] Comment value)
         {
             this.logic.Create(value);
         }
 
         [HttpPut("{id}")]
-        public void Update([FromBody] Author value)
+        public void Update([FromBody] Comment value)
         {
             this.logic.Update(value);
         }
