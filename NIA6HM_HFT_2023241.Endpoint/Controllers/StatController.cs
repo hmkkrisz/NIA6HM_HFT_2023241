@@ -37,7 +37,7 @@ namespace NIA6HM_HFT_2023241.Endpoint.Controllers
             return this.articleLogic.AvgLikesPerCategory();
         }
         [HttpGet]
-        public Author GetMostLikedAuthor()
+        public IEnumerable<AuthorInfo> GetMostLikedAuthor()
         {
             return this.articleLogic.GetMostLikedAuthor();
         }

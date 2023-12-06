@@ -95,7 +95,16 @@ namespace NIA6HM_HFT_2023241.Test
         {
            
             var actual = articleLogic.GetMostLikedAuthor();
-            Assert.That(actual.Name, Is.EqualTo("John Doe"));
+            var expected = new List<AuthorInfo>()
+            {
+                new AuthorInfo
+                {
+                    articles = 3,
+                    likes = 189,
+                    name = "John Doe"
+                }
+            };
+            Assert.AreEqual(expected, actual);
         }
 
         [Test]

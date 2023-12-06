@@ -94,11 +94,27 @@ namespace NIA6HM_HFT_2023241.Logic
 
                    };
         }
-        public Author GetMostLikedAuthor()
+        public IEnumerable<AuthorInfo> GetMostLikedAuthor()
         {
-            var author = this.repo.ReadAll()
-                .OrderByDescending(x => x.Likes).FirstOrDefault().Author;
-            return author;
+            //var author = this.repo.ReadAll()
+            //    .OrderByDescending(x => x.Likes)
+            //    .Select(x => x.Author.Name).FirstOrDefault();
+
+            var likes = (from x in this.repo.ReadAll()
+                         group x by x.Author.Name into g
+                         select new AuthorInfo()
+                         {
+                             name = g.Key,
+                             articles = g.Count(),
+                             likes = g.Sum(t => t.Likes)
+
+
+                         }).OrderByDescending(x => x.likes).Take(1);
+
+            return likes;
+
+
+            //return author;
                
         }   
 

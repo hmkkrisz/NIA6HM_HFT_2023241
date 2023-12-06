@@ -15,7 +15,7 @@ namespace NIA6HM_HFT_2023241.Logic
         IEnumerable<AuthorInfo> AuthorStatistics();
         IQueryable<string> Top3MostCommentedArticle();
         IEnumerable<AvgCtgLikes> AvgLikesPerCategory();
-        Author GetMostLikedAuthor();
+        IEnumerable<AuthorInfo> GetMostLikedAuthor();
 
 
     }

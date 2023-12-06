@@ -11,7 +11,7 @@ namespace NIA6HM_HFT_2023241.Client
     {
         static RestService rest;
 
-        static void CreateAuthor(string entity)
+        static void Create(string entity)
         {
             if (entity == "Author")
             {
@@ -19,26 +19,20 @@ namespace NIA6HM_HFT_2023241.Client
                 string name = Console.ReadLine();
                 rest.Post(new Author() { Name = name }, "author");
             }
-        }
-        static void CreateArticle(string entity)
-        {
-            if (entity == "Article")
+            else if (entity == "Article")
             {
                 Console.Write("Enter Article Title: ");
                 string name = Console.ReadLine();
                 rest.Post(new Article() { Title = name }, "article");
             }
-        }
-        static void CreateComment(string entity)
-        {
-            if (entity == "Comment")
+            else if(entity == "Comment")
             {
                 Console.Write("Enter Comment Text: ");
                 string name = Console.ReadLine();
                 rest.Post(new Comment() { Text = name }, "comment");
             }
         }
-        static void ListAuthor(string entity)
+        static void List(string entity)
         {
             if (entity == "Author")
             {
@@ -48,11 +42,7 @@ namespace NIA6HM_HFT_2023241.Client
                     Console.WriteLine(item.AuthorId + ": " + item.Name);
                 }
             }
-            Console.ReadLine();
-        }
-        static void ListArticle(string entity)
-        {
-            if (entity == "Article")
+            else if(entity == "Article")
             {
                 List<Article> actors = rest.Get<Article>("article");
                 foreach (var item in actors)
@@ -60,36 +50,30 @@ namespace NIA6HM_HFT_2023241.Client
                     Console.WriteLine(item.ArticleId + ": " + item.Title);
                 }
             }
-            Console.ReadLine();
-        }
-        static void ListComment(string entity)
-        {
-            if (entity == "Author")
+            else if(entity == "Comment")
             {
                 List<Comment> actors = rest.Get<Comment>("comment");
                 foreach (var item in actors)
                 {
                     Console.WriteLine(item.CommentId + ": " + item.Text);
-                }
+                }               
             }
             Console.ReadLine();
+
         }
-        static void UpdateAuthor(string entity)
+        static void Update(string entity)
         {
             if (entity == "Author")
             {
                 Console.Write("Enter Author's id to update: ");
                 int id = int.Parse(Console.ReadLine());
-                Author one = rest.Get<Author>(id, "actor");
+                Author one = rest.Get<Author>(id, "author");
                 Console.Write($"New name [old: {one.Name}]: ");
                 string name = Console.ReadLine();
                 one.Name = name;
-                rest.Put(one, "actor");
+                rest.Put(one, "author");
             }
-        }
-        static void UpdateArticle(string entity)
-        {
-            if (entity == "Article")
+            else if (entity == "Article")
             {
                 Console.Write("Enter Article's id to update: ");
                 int id = int.Parse(Console.ReadLine());
@@ -99,10 +83,7 @@ namespace NIA6HM_HFT_2023241.Client
                 one.Title = name;
                 rest.Put(one, "article");
             }
-        }
-        static void UpdateComment(string entity)
-        {
-            if (entity == "Comment")
+            else if (entity == "Comment")
             {
                 Console.Write("Enter Comment's id to update: ");
                 int id = int.Parse(Console.ReadLine());
@@ -113,7 +94,7 @@ namespace NIA6HM_HFT_2023241.Client
                 rest.Put(one, "comment");
             }
         }
-        static void DeleteAuthor(string entity)
+        static void Delete(string entity)
         {
             if (entity == "Author")
             {
@@ -121,26 +102,19 @@ namespace NIA6HM_HFT_2023241.Client
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "author");
             }
-        }
-        static void DeleteArticle(string entity)
-        {
-            if (entity == "Article")
+            else if (entity == "Article")
             {
                 Console.Write("Enter Article's id to delete: ");
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "article");
             }
-        }
-        static void DeleteComment(string entity)
-        {
-            if (entity == "comment")
+            else if (entity == "comment")
             {
                 Console.Write("Enter Comment's id to delete: ");
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "comment");
             }
         }
-
         static void AuthorStatistics(string entity)
         {
             if (entity == "AuthorStatistics")
@@ -156,20 +130,22 @@ namespace NIA6HM_HFT_2023241.Client
         }
         static void GetMostLikedAuthor(string entity)
         {
-            if (entity == "Query")
+            if (entity == "GetMostLikedAuthor")
             {
-                var q = rest.Get<dynamic>("stat/GetMostLikedAuthor");
+                var q = rest.Get<AuthorInfo>("stat/GetMostLikedAuthor");
                 foreach (var item in q)
                 {
-                    Console.WriteLine("Name: " + item.ToString());
+                    Console.WriteLine("Name: " + item.name);
                 }
+
+              
                 Console.ReadLine();
             }
 
         }
         static void Top3MostCommentedArticle(string entity)
         {
-            if (entity == "Query")
+            if (entity == "Top3MostCommentedArticle")
             {
                 var q = rest.Get<dynamic>("stat/Top3MostCommentedArticle");
                 foreach (var item in q)
@@ -181,7 +157,7 @@ namespace NIA6HM_HFT_2023241.Client
         }
         static void AvgLikesPerCategory(string entity)
         {
-            if (entity == "Query")
+            if (entity == "AvgLikesPerCategory")
             {
                 var q = rest.Get<AvgCtgLikes>("stat/AvgLikesPerCategory").ToList();
                 foreach (var item in q)
@@ -194,7 +170,7 @@ namespace NIA6HM_HFT_2023241.Client
 
         static void GetCommentsForArticle(string entity)
         {
-            if (entity == "Query")
+            if (entity == "GetCommentsForArticle")
             {
                 Console.WriteLine("Enter article's ID: ");
                 int artID = int.Parse(Console.ReadLine());
@@ -213,32 +189,32 @@ namespace NIA6HM_HFT_2023241.Client
             rest = new RestService("http://localhost:58339/", "swagger");
 
             var authorSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => ListAuthor("Author"))
-                .Add("Create", () => CreateAuthor("Author"))
-                .Add("Delete", () => DeleteAuthor("Author"))
-                .Add("Update", () => UpdateAuthor("Author"))
+                .Add("List", () => List("Author"))
+                .Add("Create", () => Create("Author"))
+                .Add("Delete", () => Delete("Author"))
+                .Add("Update", () => Update("Author"))
                 .Add("Exit", ConsoleMenu.Close);
 
             var articleSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => ListArticle("Article"))
-                .Add("Create", () => CreateArticle("Article"))
-                .Add("Delete", () => DeleteArticle("Article"))
-                .Add("Update", () => UpdateArticle("Article"))
+                .Add("List", () => List("Article"))
+                .Add("Create", () => Create("Article"))
+                .Add("Delete", () => Delete("Article"))
+                .Add("Update", () => Update("Article"))
                 .Add("Exit", ConsoleMenu.Close);
 
             var commentSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => ListComment("Comment"))
-                .Add("Create", () => CreateComment("Comment"))
-                .Add("Delete", () => DeleteComment("Comment"))
-                .Add("Update", () => UpdateComment("Comment"))
+                .Add("List", () => List("Comment"))
+                .Add("Create", () => Create("Comment"))
+                .Add("Delete", () => Delete("Comment"))
+                .Add("Update", () => Update("Comment"))
                 .Add("Exit", ConsoleMenu.Close);
 
             var noncrudSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("Authors Statistics", () => AuthorStatistics("AuthorStatistics"))
-                .Add("AvgLikesPerCategory", () => AvgLikesPerCategory("Query"))
-                .Add("GetMostLikedAuthor", () => GetMostLikedAuthor("Query"))
-                .Add("Top3MostCommentedArticle", () => Top3MostCommentedArticle("Query"))
-                .Add("GetCommentsForArticle", () => GetCommentsForArticle("Query"))
+                .Add("AvgLikesPerCategory", () => AvgLikesPerCategory("AvgLikesPerCategory"))
+                .Add("GetMostLikedAuthor", () => GetMostLikedAuthor("GetMostLikedAuthor"))
+                .Add("Top3MostCommentedArticle", () => Top3MostCommentedArticle("Top3MostCommentedArticle"))
+                .Add("GetCommentsForArticle", () => GetCommentsForArticle("GetCommentsForArticle"))
                 .Add("Exit", ConsoleMenu.Close);
                 
             
