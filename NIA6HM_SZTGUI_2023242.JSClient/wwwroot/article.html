@@ -1,0 +1,39 @@
+﻿﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ArticleUI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Article Catalog</h1>
+
+    <div id="formdiv">
+        <label>Article Title</label>
+        <input type="text" id="articlename" />
+        <button type="button" onclick="create()">Add Article</button>
+    </div>
+    <div id="updateformdiv">
+        <label>Article Title</label>
+        <input type="text" id="articlenametoupdate" />
+        <button type="button" onclick="update()">Update Article</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="article.js"></script>
+
+</body>
+</html>

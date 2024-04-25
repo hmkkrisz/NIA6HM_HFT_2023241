@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NIA6HM_HFT_2023241.Endpoint.Services;
 using NIA6HM_HFT_2023241.Logic;
 using NIA6HM_HFT_2023241.Models;
 using NIA6HM_HFT_2023241.Repository;
@@ -41,6 +42,8 @@ namespace NIA6HM_HFT_2023241.Endpoint
             services.AddTransient<IArticleLogic, ArticleLogic>();
             services.AddTransient<ICommentLogic, CommentLogic>();
 
+            services.AddSignalR();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -67,6 +70,12 @@ namespace NIA6HM_HFT_2023241.Endpoint
                 await context.Response.WriteAsJsonAsync(response);
             }));
 
+            app.UseCors(x => x
+                .AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:24734"));
+          
 
             app.UseRouting();
 
@@ -75,6 +84,7 @@ namespace NIA6HM_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }

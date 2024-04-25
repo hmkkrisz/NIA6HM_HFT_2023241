@@ -1,0 +1,39 @@
+﻿﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>AuthorUI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Author Catalog</h1>
+
+    <div id="formdiv">
+        <label>Author Name</label>
+        <input type="text" id="authorname" />
+        <button type="button" onclick="create()">Add Author</button>
+    </div>
+    <div id="updateformdiv">
+        <label>Author Name</label>
+        <input type="text" id="authornametoupdate" />
+        <button type="button" onclick="update()">Update Author</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="author.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿﻿
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="noncrud.css" />
+    <title>NonCrud Queries</title>
+</head>
+<body>
+    <div>
+        <label>Szerző statisztika:</label>
+        <button id="submitAuthStat">Submit</button>
+        <div id="resultAuthStat" class="result"></div>
+    </div>
+
+    <div>
+        <label>Átlagos like-ok száma kategóriánként:</label>
+        <button id="submitAvgLikes">Submit</button>
+        <div id="resultAvgLikes" class="result"></div>
+    </div>
+
+    <div>
+        <label>Legkedveltedd szerző:</label>
+        <button id="submitMostLiked">Submit</button>
+        <div id="resultMostLiked" class="result"></div>
+    </div>
+
+    <div>
+        <label>3 legtöbb kommenttel rendelkező cikk</label>
+        <button id="submitTop3">Submit</button>
+        <div id="resultTop3" class="result"></div>
+    </div>
+
+    <div>
+        <label for="inputArticleID">Article ID for comments:</label>
+        <input type="number" id="inputArticleID" name="inputArticleID">
+        <button id="submitArticleID">Submit</button>
+        <div id="resultArticleID" class="result"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="noncrud.js"></script>
+</body>
+</html>
